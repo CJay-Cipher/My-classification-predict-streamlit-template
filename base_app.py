@@ -50,23 +50,6 @@ def data_cleaning(data):
     return copy_data
 
 
-# FEATURE ENGINEERING
-def feature_engineering():
-    """ Setting the parameters for the Vectorizer """
-    vectorizer = CountVectorizer(
-        analyzer = 'word', 
-        tokenizer = None, 
-        preprocessor = None, 
-        stop_words = None, 
-        max_features = 180000,
-        min_df = 1,
-        ngram_range = (1, 2)
-    )
-    return vectorizer
-
-# Vectorizer
-vectorizer = feature_engineering()
-
 # Load your raw data
 raw = pd.read_csv("resources/train.csv")
 
@@ -112,6 +95,17 @@ def main():
 		if st.button("Classify"):
 			# Transforming user input with vectorizer
 			tweet_df = pd.DataFrame({"message": tweet_text})
+
+			vectorizer = CountVectorizer(
+				analyzer = 'word', 
+				tokenizer = None, 
+				preprocessor = None, 
+				stop_words = None, 
+				max_features = 180000,
+				min_df = 1,
+				ngram_range = (1, 2)
+			)
+	
 			vect_text = vectorizer.transform(data_cleaning(tweet_df)["message"])
 			# Load your .pkl file with the model of your choice + make predictions
 			# Try loading in multiple models to give the user a choice
