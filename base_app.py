@@ -66,7 +66,7 @@ def main():
 		tweet_text = st.text_area("Enter Text","Type Here")
 
 		model_options = ["Logistic Regression", "Linear SVC", "Multinomial Naive Bayes"]
-		model_selection = st.sidebar.selectbox("Select Model", model_options)
+		model_selection = st.selectbox("Select Model", model_options)
 		if model_selection == "Logistic Regression":
 			selected_model = "lr"
 		elif model_selection == "Linear SVC":
