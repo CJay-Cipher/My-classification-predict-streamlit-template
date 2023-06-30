@@ -42,7 +42,7 @@ def main():
 	# Creates a main title and subheader on your page -
 	# these are static across all pages
 	st.title("Tweet Classifer")
-	st.subheader("Climate change tweet classification.")
+	st.subheader("Climate change tweet classification")
 
 	# Creating sidebar with selection box -
 	# you can create multiple pages this way
@@ -65,12 +65,21 @@ def main():
 		# Creating a text box for user input
 		tweet_text = st.text_area("Enter Text","Type Here")
 
+		model_options = ["Logistic Regression", "Linear SVC", "Multinomial Naive Bayes"]
+		model_selection = st.sidebar.selectbox("Select Model", model_options)
+		if model_selection == "Logistic Regression":
+			selected_model = "lr"
+		elif model_selection == "Linear SVC":
+			selected_model = "lr_svc"
+		else:
+			selected_model = "mnb"
+
 		if st.button("Classify"):
 			# Transforming user input with vectorizer
 			vect_text = tweet_cv.transform([tweet_text]).toarray()
 			# Load your .pkl file with the model of your choice + make predictions
 			# Try loading in multiple models to give the user a choice
-			predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
+			predictor = joblib.load(open(os.path.join(f"pickle_files/{selected_model}.pkl"),"rb"))
 			prediction = predictor.predict(vect_text)
 
 			# When model has successfully run, will print prediction
