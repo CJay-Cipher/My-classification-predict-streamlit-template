@@ -113,7 +113,7 @@ def main():
 			# Transforming user input with vectorizer
 			tweet_df = pd.DataFrame({"message": tweet_text})
 			tweet_df = data_cleaning(tweet_df)
-			vect_text = vectorizer.transform(tweet_df).toarray()
+			vect_text = vectorizer.transform(tweet_df["message"])
 			# Load your .pkl file with the model of your choice + make predictions
 			# Try loading in multiple models to give the user a choice
 			predictor = joblib.load(open(os.path.join(f"pickle_files/{selected_model}.pkl"),"rb"))
